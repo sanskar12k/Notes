@@ -18,7 +18,7 @@ if(!isset($_SESSION['email']) || !$_SESSION['loggedin']){
     <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
    <!-- Icon -->
-   <link rel="stylesheet" href="myProjects/webProject/icofont/css/icofont.min.css">
+   <!-- <link rel="stylesheet" href="myProjects/webProject/icofont/css/icofont.min.css"> -->
     
    <title>Notes</title>
   </head>
@@ -104,8 +104,12 @@ if(!isset($_SESSION['email']) || !$_SESSION['loggedin']){
       
     }
     ?>
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button> -->
 
-<!-- Modal For Editing -->
+<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -158,10 +162,70 @@ if(!isset($_SESSION['email']) || !$_SESSION['loggedin']){
       </div>
 </form>
       </div>
-     
+      <!-- <div class="modal-footer"> -->
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
+      <!-- </div> -->
     </div>
   </div>
 </div>
+<!-- Modal For Editing -->
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Notes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form action="index.php" method = "post" class="w-75">
+        <input type="hidden" name = "sno" id = "sno">
+    <div class="mb-3 ">
+  <label for="formGroupExampleInput" class="form-label">Title</label>
+  <input type="text" class="form-control" name = "titleEdit" id="titleEdit" placeholder="Title" required>
+</div>
+<div class="mb-3">
+  <label for="formGroupExampleInput2" class="form-label">Detail</label>
+  <textarea rows="4" class="form-control" name = "detailEdit"  id="detailEdit" placeholder="Detail"></textarea>
+</div>
+<div class="mb-3">
+  <label for="formGroupExampleInput2" class="form-label">Deadline</label>
+  <input type="date" class="form-control" name = "deadlineEdit" id="deadlineEdit" placeholder="Deadline" required>
+</div>
+ 
+Notification
+ ?php
+  if($insert){
+      echo'<div class="alert alert-success alert-dismissible fade show" role="alert">
+      Notes Added
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+    echo "<meta http-equiv='refresh' content='0.5'>";
+  }
+  elseif( $update){
+    echo'<div class="alert alert-success alert-dismissible fade show" role="alert">
+    Notes Updated
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>';
+  }
+  elseif( $dele){
+    echo'<div class="alert alert-success alert-dismissible fade show" role="alert">
+    Deleted Successfully
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>';
+  }
+  ?> 
+   <div class="modal-footer">
+      <div class="col-12">
+    <button type="submit" class="btn btn-primary">Update Note</button>
+  </div>
+      </div>
+</form> 
+      </div>
+     
+    </div>
+  </div>
+</div>-->
 
  <!-- To Write a new note-->
     <form action="index.php" method = "post" class="w-75">
@@ -230,12 +294,15 @@ if(!isset($_SESSION['email']) || !$_SESSION['loggedin']){
         <td>" .$row['Detail']. "</td>
         <td>" .$row['Deadline']. "</td>
         <td>" .$newDay. "</td>
-
-        <td> <button type='button' class='btn btn-primary edit'data-bs-toggle='modal' id = ".$row['S No.']."data-bs-target='#exampleModal' >Edit</button> 
- <button type='button' class='btn btn-danger del'data-bs-toggle='modal' id = d".$row['S No.']." data-bs-target='#delModal' >Delete</button> </td>
+        <td><button type='button' class='btn btn-primary edit' data-bs-toggle='modal'id = ".$row['S No.']." data-bs-target='#exampleModal'>
+        Edit
+      </button></td>
+        
+           <td>   <button type='button' class='btn btn-danger del'  id = d".$row['S No.']."  >Delete</button> </td>
         </tr>";
-        // if($bgcol == "#e1505e"){
-        //   echo "<strong> Complete this fast </strong>";
+        // if($bgcol == "#e1505e"){  data-bs-toggle='modal'  data-bs-target='#delModal'
+        //   echo "<strong> Complete this fast </strong>";  <td> <button type='button' class='btn btn-primary edit'  data-bs-toggle='modal' id = ".$row['S No.']."data-bs-target='#exampleModal' >Edit</button> </td>
+       // <td>
         // }
       $Num = $Num+1;
       }
@@ -249,8 +316,8 @@ if(!isset($_SESSION['email']) || !$_SESSION['loggedin']){
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
 
 <script> href="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"</script>
    <script>
@@ -259,10 +326,10 @@ if(!isset($_SESSION['email']) || !$_SESSION['loggedin']){
 } );
 </script>
     <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
+    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
+   
 
     <script>
       edits = document.getElementsByClassName('edit');
